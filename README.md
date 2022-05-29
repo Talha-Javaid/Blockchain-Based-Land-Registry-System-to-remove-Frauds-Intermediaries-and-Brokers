@@ -1,8 +1,10 @@
 # Blockchain-Based-Land-Registry-System-to-remove-Frauds-Intermediaries-and-Brokers
 
-The commercial Land Registration market is a significant part of the global economy, currently dominated by a small set of firms and organizations that lack transparency. The process of land transfers also requires third party intervention which is expensive.
+The land registry system is one of the very important department in any governance system that stores the records of land ownership. There are various issues and loopholes in the existing system that give rise to corruption and disputes. This requires a significant chunk of valuable government resources from judiciary and law enforcement agencies in settling these issues.
 
-In many countries, the process of ownership transfers is problematic. We are still  in the initial steps of digitization, due to the improvement required in terms of use of technology to represent assets in digital forms. Increase in liquidity of investments and purchases, proper management, documentation as well as ease of access is the future of Land Management and real estate. Blockchain technologies have the potential to drive these changes.
+Blockchain technology has the potential to counter these loopholes and sort out the issues related with land registry system like tempering of records, trading of the same piece of land to more than one buyer. In this project a secure and reliable framework for land registry system using Blockchain has been implemented.
+
+The framework uses the concept of smart contract at various stages of the land registry and gives an algorithm for pre-agreement. First, the conventional land registry system in Pakistan and the issues are highlighted. Then, I jave outlined the potential benefits of employing Blockchain technology in the land registry system and presented a framework.
 
 # Current Land Registry System in Pakistan
 
