@@ -451,9 +451,9 @@ contract LandRegistration {
         "Land is not verified yet");
 
     require(IsBuyerVerified(msg.sender)==true, 
-        "Buyer must be verified by landinspector");
+        " Only buyer is allowed to buy land ");
 
-    (BuyerMapping[msg.sender].BuyerAddress == msg.sender,
+    require(BuyerMapping[msg.sender].BuyerAddress == msg.sender,
         "Only buyer is allowed to buy land");
     
     require(msg.value == LandMapping[LandId].LandPrice,
