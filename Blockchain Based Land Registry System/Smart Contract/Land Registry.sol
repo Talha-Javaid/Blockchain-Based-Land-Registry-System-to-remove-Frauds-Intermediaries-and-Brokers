@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.7.0 <0.9.0;
 
-    contract LandRegistration {
+contract LandRegistration {
 
     address public LandInspector=msg.sender;
 
@@ -131,7 +131,7 @@ pragma solidity ^0.7.0 <0.9.0;
         uint _Age, 
         string memory _City, 
         string memory _CNIC, 
-        string memory _Email) public  {
+        string memory _Email) external {
 
     require(LandInspector!=msg.sender,
         "Only seller can update his data");
@@ -192,7 +192,7 @@ pragma solidity ^0.7.0 <0.9.0;
         string memory City,
         string memory CNIC,
         string memory Email) 
-        public {
+        external {
     
     require(LandInspector!=msg.sender,
         "Buyer address cannot be same as landinspector address");
@@ -239,7 +239,7 @@ pragma solidity ^0.7.0 <0.9.0;
         uint _Age, 
         string memory _City, 
         string memory _CNIC, 
-        string memory _Email) public {
+        string memory _Email) external {
 
     require(LandInspector!=msg.sender,
         "LandInspector is not allowned, Only Buyer can update his data");
@@ -295,7 +295,7 @@ pragma solidity ^0.7.0 <0.9.0;
         string memory Name,
         uint Age,
         string memory Designation) 
-        public OnlylandInspector {
+        external OnlylandInspector {
        
         InspectorMapping[ID]=LandInspectorDetails( 
         Name, 
@@ -339,7 +339,7 @@ pragma solidity ^0.7.0 <0.9.0;
         string memory State,
         uint LandPrice,
         uint PropertyPID) 
-        public  {
+        external  {
 
     require(IsSellerVerified(msg.sender),
         "Seller must be verified");
@@ -498,7 +498,7 @@ pragma solidity ^0.7.0 <0.9.0;
     function ShowBalance(
         
         address _address) 
-        public view returns(uint)
+        external view returns(uint)
     {
         return address(_address).balance;
     }
