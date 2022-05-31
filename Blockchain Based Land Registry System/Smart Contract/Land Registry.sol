@@ -5,7 +5,7 @@ contract LandRegistration {
 
     address public LandInspector=msg.sender;
 
-    modifier OnlylandInspector() {
+    modifier OnlyLandInspector() {
         
     require (LandInspector==msg.sender,
         "Only landinspector is authorized to perform this action");
@@ -62,17 +62,17 @@ contract LandRegistration {
     mapping(address => BuyerDetails) public BuyerMapping; 
 
 
-    event SellerRegistration(address _sellerregistered);
-    event BuyerRegistration(address __buyerregistered);
-    event Verified(address _id);
-    event Rejected(address _id);
+    event SellerRegistration(address _SellerRegistered);
+    event BuyerRegistration(address _BuyerRegistered);
+    event Verified(address _Id);
+    event Rejected(address _Id);
 
     /*
 
     /////////////////// Register Seller ///////////////
     /////// Seller will register with his details
-    /////// LandInspector can either verify that seller or reject that seller. 
-    /////// We can also update the seller details. 
+    /////// LandInspector can either verify that seller or reject that seller
+    /////// We can also update the seller details
     /////// We can check if seller is verified or not
 
 
@@ -156,7 +156,7 @@ contract LandRegistration {
 
     function VerifySeller(address _SellerAddress)
     
-        public OnlylandInspector {
+        public OnlyLandInspector {
         SellerMapping[_SellerAddress].IsSellerVerified=true;
         
     emit Verified(_SellerAddress);
@@ -165,7 +165,7 @@ contract LandRegistration {
 
     function RejectSeller(address _SellerAddress) 
     
-        public OnlylandInspector {
+        public OnlyLandInspector {
         SellerMapping[_SellerAddress].IsSellerVerified=false;
         
     emit Rejected(_SellerAddress);
@@ -199,6 +199,10 @@ contract LandRegistration {
     
     require(BuyerAddress==msg.sender,
         "This address is already registered");
+    
+   // require(BuyerMapping[msg.sender].BuyerAddress == msg.sender,
+     //   "Only buyer is allowed to buy land");
+    
 
         BuyerMapping[BuyerAddress]=BuyerDetails(
         
@@ -214,9 +218,9 @@ contract LandRegistration {
     
     }
 
-    function GetBuyerDetails(address _buyeraddress)
+    function GetBuyerDetails(address BuyerAddress)
         
-        public view returns(
+        external view returns(
         string memory, 
         uint,
         string memory,
@@ -224,11 +228,11 @@ contract LandRegistration {
         string memory) { 
         return (
 
-        BuyerMapping[_buyeraddress].Name,
-        BuyerMapping[_buyeraddress].Age,
-        BuyerMapping[_buyeraddress].City,
-        BuyerMapping[_buyeraddress].CNIC,
-        BuyerMapping[_buyeraddress].Email);
+        BuyerMapping[BuyerAddress].Name,
+        BuyerMapping[BuyerAddress].Age,
+        BuyerMapping[BuyerAddress].City,
+        BuyerMapping[BuyerAddress].CNIC,
+        BuyerMapping[BuyerAddress].Email);
 
     }
 
@@ -265,7 +269,7 @@ contract LandRegistration {
     
     function VerifyBuyer(address _BuyerAddress) 
     
-        public OnlylandInspector{
+        public OnlyLandInspector{
         BuyerMapping[_BuyerAddress].IsBuyerVerified=true;
         
     emit Verified(_BuyerAddress);
@@ -274,7 +278,7 @@ contract LandRegistration {
 
     function RejectBuyer(address _BuyerAddress)
     
-        public OnlylandInspector {
+        public OnlyLandInspector {
         BuyerMapping[_BuyerAddress].IsBuyerVerified=false;
         
     emit Rejected(_BuyerAddress);
@@ -295,7 +299,7 @@ contract LandRegistration {
         string memory Name,
         uint Age,
         string memory Designation) 
-        external OnlylandInspector {
+        external OnlyLandInspector {
        
         InspectorMapping[ID]=LandInspectorDetails( 
         Name, 
@@ -391,36 +395,36 @@ contract LandRegistration {
 
     function VerifyLand(uint LandId) 
         
-        public OnlylandInspector{
+        public OnlyLandInspector{
         LandMapping[LandId].IsLandVerified=true;
     
     }
 
-    function GetLandCity(uint  _getLandCity)
+    function GetLandCity(uint  _GetLandCity)
         
         public view returns(
         string memory)
     {
         return 
-        LandMapping[_getLandCity].City;
+        LandMapping[_GetLandCity].City;
 
     }
 
-    function GetLandPrice(uint  _getLandPrice) 
+    function GetLandPrice(uint  _GetLandPrice) 
     
         public view returns(uint)
     {
         return 
-        LandMapping[_getLandPrice].LandPrice;
+        LandMapping[_GetLandPrice].LandPrice;
 
     }
 
-    function GetLandArea(uint  _getLandArea)
+    function GetLandArea(uint  _GetLandArea)
         
         public view returns(uint)
     {
         return 
-        LandMapping[_getLandArea].Area;
+        LandMapping[_GetLandArea].Area;
 
     }
 
