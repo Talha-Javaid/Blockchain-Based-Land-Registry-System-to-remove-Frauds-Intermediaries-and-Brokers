@@ -62,9 +62,24 @@ contract LandRegistration {
     mapping(address => BuyerDetails) public BuyerMapping; 
 
 
-    event SellerRegistration(address _SellerRegistered);
-    event BuyerRegistration(address _BuyerRegistered);
+    event SellerRegistration(
+        address _SellerRegistered,
+        string Name, 
+        uint Age,
+        string City,
+        string CNIC,
+        string Email);
+    
+    event BuyerRegistration(
+        address _BuyerRegistered,
+        string Name, 
+        uint Age,
+        string City,
+        string CNIC,
+        string Email);
+    
     event Verified(address _Id);
+    
     event Rejected(address _Id);
 
     /*
@@ -102,7 +117,13 @@ contract LandRegistration {
         Email,
         false);
      
-    emit SellerRegistration(msg.sender);
+    emit SellerRegistration(
+        msg.sender,
+        Name, 
+        Age,
+        City,
+        CNIC,
+        Email);
 
     }
 
@@ -113,8 +134,9 @@ contract LandRegistration {
         uint,
         string memory,
         string memory,
-        string memory) { 
-        return (
+        string memory) 
+    { 
+        return(
 
         SellerMapping[SellerAddress].Name,
         SellerMapping[SellerAddress].Age,
@@ -131,8 +153,8 @@ contract LandRegistration {
         uint _Age, 
         string memory _City, 
         string memory _CNIC, 
-        string memory _Email) external {
-
+        string memory _Email) external 
+    {
     require(LandInspector!=msg.sender,
         "Only seller can update his data");
     
@@ -148,15 +170,15 @@ contract LandRegistration {
     }
 
     function IsSellerVerified(address SetSellerAddress) 
-        
-        public view returns(bool){
+        public view returns(bool)
+    {
         return 
         SellerMapping[SetSellerAddress].IsSellerVerified;
     }
 
     function VerifySeller(address _SellerAddress)
-    
-        public OnlyLandInspector {
+        public OnlyLandInspector 
+    {
         SellerMapping[_SellerAddress].IsSellerVerified=true;
         
     emit Verified(_SellerAddress);
@@ -164,10 +186,10 @@ contract LandRegistration {
     }
 
     function RejectSeller(address _SellerAddress) 
-    
-        public OnlyLandInspector {
+        public OnlyLandInspector 
+    {
         SellerMapping[_SellerAddress].IsSellerVerified=false;
-        
+    
     emit Rejected(_SellerAddress);
     
     }
@@ -192,20 +214,15 @@ contract LandRegistration {
         string memory City,
         string memory CNIC,
         string memory Email) 
-        external {
-    
+        external 
+    {
     require(LandInspector!=msg.sender,
         "Buyer address cannot be same as landinspector address");
     
     require(BuyerAddress==msg.sender,
         "This address is already registered");
     
-   // require(BuyerMapping[msg.sender].BuyerAddress == msg.sender,
-     //   "Only buyer is allowed to buy land");
-    
-
         BuyerMapping[BuyerAddress]=BuyerDetails(
-        
         msg.sender,
         Name,
         Age,
@@ -214,8 +231,14 @@ contract LandRegistration {
         Email,
         false);
 
-    emit BuyerRegistration(msg.sender);
-    
+    emit BuyerRegistration(
+        msg.sender,
+        Name, 
+        Age,
+        City,
+        CNIC,
+        Email);
+        
     }
 
     function GetBuyerDetails(address BuyerAddress)
@@ -225,9 +248,9 @@ contract LandRegistration {
         uint,
         string memory,
         string memory,
-        string memory) { 
-        return (
-
+        string memory) 
+    { 
+        return(
         BuyerMapping[BuyerAddress].Name,
         BuyerMapping[BuyerAddress].Age,
         BuyerMapping[BuyerAddress].City,
@@ -243,8 +266,9 @@ contract LandRegistration {
         uint _Age, 
         string memory _City, 
         string memory _CNIC, 
-        string memory _Email) external {
-
+        string memory _Email) 
+        external 
+    {
     require(LandInspector!=msg.sender,
         "LandInspector is not allowned, Only Buyer can update his data");
     
@@ -260,16 +284,16 @@ contract LandRegistration {
     }
 
     function IsBuyerVerified(address SetBuyerAddress) 
-    
-        public view  returns(bool){
+        public view  returns(bool)
+    {
         return 
         BuyerMapping[SetBuyerAddress].IsBuyerVerified;
     
     }
     
     function VerifyBuyer(address _BuyerAddress) 
-    
-        public OnlyLandInspector{
+        public OnlyLandInspector
+    {
         BuyerMapping[_BuyerAddress].IsBuyerVerified=true;
         
     emit Verified(_BuyerAddress);
@@ -277,8 +301,8 @@ contract LandRegistration {
     }
 
     function RejectBuyer(address _BuyerAddress)
-    
-        public OnlyLandInspector {
+        public OnlyLandInspector 
+    {
         BuyerMapping[_BuyerAddress].IsBuyerVerified=false;
         
     emit Rejected(_BuyerAddress);
@@ -299,8 +323,9 @@ contract LandRegistration {
         string memory Name,
         uint Age,
         string memory Designation) 
-        external OnlyLandInspector {
-       
+        external
+        OnlyLandInspector 
+    {   
         InspectorMapping[ID]=LandInspectorDetails( 
         Name, 
         Age, 
@@ -309,13 +334,12 @@ contract LandRegistration {
     }
 
     function GetInspectorDetails(uint ID) 
-       
         public view returns(
         string memory, 
         uint,
-        string memory){
-        return (
-           
+        string memory)
+    {
+        return(
         InspectorMapping[ID].Name,
         InspectorMapping[ID].Age,
         InspectorMapping[ID].Designation);
@@ -336,15 +360,15 @@ contract LandRegistration {
      
     function RegisterLand(
         
-        address payable OwnerAddress,
         uint LandId,
+        address payable OwnerAddress,
         uint Area,
         string memory City,
         string memory State,
         uint LandPrice,
         uint PropertyPID) 
-        external  {
-
+        external  
+    {
     require(IsSellerVerified(msg.sender),
         "Seller must be verified");
         
@@ -352,10 +376,9 @@ contract LandRegistration {
         "Seller adress must be the OwnerAdress");
     
     require(LandInspector!=OwnerAddress,
-        "OwnerAdress must be same as selleradress");
+        "This adress is registered as landinspector address");
     
-        LandMapping[LandId]= LandRegistry(
-        
+        LandMapping[LandId]= LandRegistry( 
         OwnerAddress, 
         Area, 
         City, 
@@ -369,13 +392,16 @@ contract LandRegistration {
     function GetLandDetails(uint landId) 
         
         public view returns(
+        address,
         uint,
         string memory, 
         string memory,
         uint,
-        uint){
-        return (
+        uint)
+    {
+        return(
 
+        LandMapping[landId].OwnerAddress,
         LandMapping[landId].Area,
         LandMapping[landId].City,
         LandMapping[landId].State,
@@ -385,7 +411,6 @@ contract LandRegistration {
     }
    
     function IsLandVerified(uint LandId)
-        
         public view  returns(bool)
     {
         return 
@@ -394,14 +419,13 @@ contract LandRegistration {
     }
 
     function VerifyLand(uint LandId) 
-        
-        public OnlyLandInspector{
+        public OnlyLandInspector
+    {
         LandMapping[LandId].IsLandVerified=true;
     
     }
 
     function GetLandCity(uint  _GetLandCity)
-        
         public view returns(
         string memory)
     {
@@ -411,7 +435,6 @@ contract LandRegistration {
     }
 
     function GetLandPrice(uint  _GetLandPrice) 
-    
         public view returns(uint)
     {
         return 
@@ -420,7 +443,6 @@ contract LandRegistration {
     }
 
     function GetLandArea(uint  _GetLandArea)
-        
         public view returns(uint)
     {
         return 
@@ -428,8 +450,7 @@ contract LandRegistration {
 
     }
 
-    function LandsOwner(uint LandId)
-    
+    function CurrentLandOwner(uint LandId)
         public view returns(
         address)
     {
@@ -449,19 +470,19 @@ contract LandRegistration {
     function BuyLand(
          
         uint LandId) 
-        public payable {
-       
+        public payable 
+    {
     require(LandMapping[LandId].IsLandVerified=true, 
-        "Land is not verified yet");
-
-    require(IsBuyerVerified(msg.sender)==true, 
-        " Only buyer is allowed to buy land ");
+        "Land is not verified by landInspector");
 
     require(BuyerMapping[msg.sender].BuyerAddress == msg.sender,
         "Only buyer is allowed to buy land");
     
+    require(IsBuyerVerified(msg.sender)==true, 
+        "Buyer is not verified");
+
     require(msg.value == LandMapping[LandId].LandPrice,
-        " Amount must be equal to LandPrice ");
+        " Not enough ether, it must be equal to LandPrice ");
     
         LandMapping[LandId].OwnerAddress.transfer(msg.value);
 
@@ -480,7 +501,8 @@ contract LandRegistration {
         
         uint LandId, 
         address payable NewOwnerAddress) 
-        public {
+        public 
+    {
     
     require(LandMapping[LandId].IsLandVerified=true,
         "Land must be verified by landinspector");
