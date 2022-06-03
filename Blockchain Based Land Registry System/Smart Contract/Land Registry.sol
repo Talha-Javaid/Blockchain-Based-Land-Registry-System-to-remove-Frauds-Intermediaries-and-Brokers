@@ -369,7 +369,7 @@ contract LandRegistration {
         uint PropertyPID) 
         external  
     {
-    require(IsSellerVerified(msg.sender),
+    require(IsSellerVerified(msg.sender)==true,
         "Seller must be verified");
         
     require(OwnerAddress==msg.sender,
